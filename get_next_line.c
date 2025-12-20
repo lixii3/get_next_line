@@ -6,7 +6,7 @@
 /*   By: lmongili <lmongili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:41:15 by lmongili          #+#    #+#             */
-/*   Updated: 2025/12/20 15:55:04 by lmongili         ###   ########.fr       */
+/*   Updated: 2025/12/20 17:53:18 by lmongili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,16 +107,16 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// int main(void)
-// {
-// 	int fd = open("triforce.txt", 'r');
-// 	char *line;
-// 	line = get_next_line(fd);
-// 	while(line)
-// 	{
-// 		printf("%s\n", line);
-// 		line = get_next_line(fd);
-// 	}
-// 	free(line);
-// 	return (0);
-// }
+int main(void)
+{
+	int fd = open("ILoveYou_Fontains_DC.txt", 'r');
+	char *line;
+	line = get_next_line(fd);
+	while(line)
+	{
+		printf("%s\n", line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	return (0);
+}
