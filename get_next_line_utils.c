@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lmongili <lmongili@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/20 15:40:30 by lmongili          #+#    #+#             */
+/*   Updated: 2025/12/20 15:48:16 by lmongili         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -14,6 +26,7 @@ size_t	ft_strlen(const char *s)
 	}
 	return (size);
 }
+
 char	*ft_strchr(const char *s, int c)
 {
 	if (c == 0)
@@ -76,7 +89,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (sub);
 }
 
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	s1len;
@@ -106,116 +118,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (join);
 }
 
-static char	**ft_free(char **spltd)
-{
-	int	i;
-
-	i = -1;
-	while (spltd[++i] != NULL)
-		free(spltd[i]);
-	free(spltd);
-	return (NULL);
-}
-
-static char	*find_word(char const *s, char c)
-{
-	char	*word;
-	size_t	i;
-	size_t	j;
-
-	i = -1;
-	if (!*s)
-		return (NULL);
-	if (*s == c)
-		return (find_word(s + 1, c));
-	while (++i < ft_strlen((const char *)s))
-	{
-		if (((char *)s)[i] == c)
-			break ;
-	}
-	j = i;
-	word = ft_calloc((i + 1), sizeof(char));
-	i = -1;
-	if (!word)
-		return (NULL);
-	while (++i < j)
-		word[i] = ((char *)s)[i];
-	return (word);
-}
-
-static	size_t	count_words(char const *s, char c)
-{
-	size_t	i;
-	size_t	w;
-	char	*sub;
-
-	i = -1;
-	if (ft_strchr(s, c) == NULL && *s)
-		return (1);
-	else if (ft_strchr(s, c) == NULL && !*s)
-		return (0);
-	w = 0;
-	while (s[++i] && i < ft_strlen((char *)s))
-	{
-		if (s[i] != c && i == 0)
-			w++;
-		else if (s[i] == c)
-		{
-			sub = ft_strchr((const char *)&s[i], c) + 1;
-			if (*sub && *sub != c)
-				w++;
-		}
-	}
-	return (w);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**spltd;
-	size_t	i;
-	size_t	j;
-
-	spltd = ft_calloc((count_words(s, c) + 1), sizeof(char *));
-	if (!spltd)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (i < count_words(s, c))
-	{
-		while (s[j] == c)
-			j++;
-		spltd[i] = find_word(&s[j], c);
-		if (!spltd[i])
-			return (ft_free(spltd));
-		j += ft_strlen(spltd[i]);
-		i++;
-	}
-	return (spltd);
-}
-void	*ft_memmove(void *dest, const void *src, size_t n)
-{
-	size_t	i;
-
-	if (src < dest)
-	{
-		i = n - 1;
-		while (i >= 0 && ((unsigned char *)dest)[i])
-		{
-			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-			i--;
-		}
-	}
-	else
-	{
-		i = 0;
-		while (i < n)
-		{
-			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-			i++;
-		}
-	}
-	return (dest);
-}
 char	*ft_strdup(const char *s)
 {
 	size_t	slen;
