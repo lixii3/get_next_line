@@ -6,7 +6,7 @@
 /*   By: lmongili <lmongili@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/20 15:41:15 by lmongili          #+#    #+#             */
-/*   Updated: 2025/12/22 15:11:29 by lmongili         ###   ########.fr       */
+/*   Updated: 2025/12/23 17:08:02 by lmongili         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*get_next_line(int fd)
 	line = NULL;
 	if (ft_get_nl_index(rook) != -1)
 	{
-		line = ft_substr(rook, 0, ft_get_nl_index(rook));
+		line = ft_substr(rook, 0, ft_get_nl_index(rook) + 1);
 		rook = ft_removeline(rook);
 		if (!rook)
 		{
@@ -88,7 +88,7 @@ char	*get_next_line(int fd)
 	}
 	if (ft_get_nl_index(rook) != -1)
 	{
-		line = ft_substr(rook, 0, ft_get_nl_index(rook));
+		line = ft_substr(rook, 0, ft_get_nl_index(rook) + 1);
 		rook = ft_removeline(rook);
 		if (!rook)
 		{
@@ -114,7 +114,8 @@ int main(void)
 	line = get_next_line(fd);
 	while(line)
 	{
-		printf("%s\n", line);
+		printf("%s", line);
+		free(line);
 		line = get_next_line(fd);
 	}
 	free(line);
